@@ -1,6 +1,6 @@
 import './Form.css'
-import {Field, Formik, Form} from 'formik';
-import {useState} from "react";
+import {Field, Formik, Form, ErrorMessage} from 'formik';
+import {useRef, useState} from "react";
 
 const initialValue = {
     stooge: '',
@@ -12,19 +12,43 @@ const initialValue = {
     sauces: [],
     notes: ''
 }
+
+const validate = (values) => {
+    const errors = {};
+
+    if (!/^[a-zA-Z\s]+$/.test(values.firstName)) {
+        errors.firstName = 'Invalid first name';
+    }
+
+    if (!/^[a-zA-Z\s]+$/.test(values.lastName)) {
+        errors.lastName = 'Invalid last name';
+    }
+
+    if (!/^\d+$/.test(values.age)) {
+        errors.age = 'Invalid age';
+    }
+
+    if (values.notes.length > 100) {
+        errors.notes = 'Notes must not exceed 100 characters';
+    }
+
+    return errors;
+};
 export const TaskForm = () => {
     const [output, setOutput] = useState('');
     return (
         <div className='form-box'>
             <Formik
                 initialValues={initialValue}
-                onSubmit={(values, { setSubmitting }) => {
-                    setTimeout(() => {
-                        setOutput(JSON.stringify(values, null, 8));
-                        setSubmitting(false);
-                    }, 400);
+
+                validate={validate}
+
+                onSubmit={(values, {setSubmitting}) => {
+                    alert(JSON.stringify(values, null, '\t'));
+                    setSubmitting(false);
                 }}
-                onReset={() => setOutput('')}
+                enableReinitialize={false}
+
             >
                 {({
                       values,
@@ -34,12 +58,16 @@ export const TaskForm = () => {
                       handleBlur,
                       handleSubmit,
                       isSubmitting,
-                      /* and other goodies */
+                      resetForm,
+                      dirty,
+                      isValid,
+                      setFieldValue
                   }) => (
                     <Form onSubmit={handleSubmit}>
-
-                        <label htmlFor="firstName">
-                            First Name
+                        <div className={'box'}>
+                            <label htmlFor="firstName">
+                                First Name
+                            </label>
                             <Field
                                 id="firstname"
                                 name="firstName"
@@ -47,99 +75,135 @@ export const TaskForm = () => {
                                 onChange={handleChange}
                                 value={values.firstName}
                                 placeholder='First Name'
+                                className={touched.firstName && errors.firstName ? 'error' : ''}
                             />
-                        </label>
-                        <label htmlFor="last-name">
-                            Last Name
+                            <ErrorMessage name="firstName" component="div" className="error-message"/>
+                        </div>
+
+                        <div className={'box'}>
+                            <label htmlFor="last-name">Last Name</label>
                             <Field
                                 type="text"
                                 name='lastName'
                                 onChange={handleChange}
                                 value={values.lastName}
                                 placeholder='Last Name'
+                                className={touched.lastName && errors.lastName ? 'error' : ''}
                             />
-                        </label>
+                            <ErrorMessage name="lastName" component="div" className="error-message"/>
+                        </div>
 
-                        <label htmlFor="age">
-                            Last Name
+                        <div className={'box'}>
+                            <label htmlFor="age">Age</label>
                             <Field
-                                type="number"
+                                type="text"
                                 name='age'
                                 onChange={handleChange}
                                 value={values.age}
+                                placeholder='Age'
+                                className={touched.age && errors.age ? 'error' : ''}
                             />
-                        </label>
+                            <ErrorMessage name="age" component="div" className="error-message"/>
+                        </div>
 
-                        <label>
-                            <Field type="checkbox" name="employed" />
-                            Employed
-                        </label>
-                        <label>
-                            Favorite Color
+                        <div className={'box'}>
+                            <label>Employed</label>
+                            <Field type="checkbox" name="employed"/>
+
+                        </div>
+                        <div className={'box'}>
+                            <label>Favorite Color</label>
                             <Field
                                 component="select"
                                 id='favoriteColor'
-                                multiple={false}
                             >
-                                <option value='none'>None</option>
                                 <option value='green'>Green</option>
                                 <option value='red'>Red</option>
                                 <option value='blue'>Blue</option>
                                 <option value='pink'>Pink</option>
                             </Field>
-                        </label>
-                        <center>Sauces</center>
-                        <div>
-                            <label>
-                                <Field type="checkbox" name="sauces" value="ketchup" />
-                                Ketchup
-                            </label>
-                            <label>
-                                <Field type="checkbox" name="sauces" value="mustard" />
-                                Mustard
-                            </label>
-                            <label>
-                                <Field type="checkbox" name="sauces" value="mayonnaise" />
-                                Mayonnaise
-                            </label>
-                            <label>
-                                <Field type="checkbox" name="sauces" value="guacamole" />
-                                Guacamole
-                            </label>
+                        </div>
+                        <div className={'box row'}>
+                            <span>Sauces</span>
+                            <div>
+                                <div>
+                                    <label>
+                                        <Field type="checkbox" name="sauces" value="ketchup"/>
+                                        Ketchup
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <Field type="checkbox" name="sauces" value="mustard"/>
+                                        Mustard
+                                    </label>
+                                </div>
+
+                                <div>
+                                    <label>
+                                        <Field type="checkbox" name="sauces" value="mayonnaise"/>
+                                        Mayonnaise
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <Field type="checkbox" name="sauces" value="guacamole"/>
+                                        Guacamole
+                                    </label>
+                                </div>
+
+                            </div>
                         </div>
 
-                        <center>Best Stooge</center>
-                        <div>
-                            <label>
-                                <Field type="radio" name="stooge" value="larry" />
-                                Larry
-                            </label>
-                            <label>
-                                <Field type="radio" name="stooge" value="moe" />
-                                Moe
-                            </label>
-                            <label>
-                                <Field type="radio" name="stooge" value="curly" />
-                                Curly
-                            </label>
+                        <div className={'box row'}>
+                            <span>Best Stooge</span>
+                            <div>
+                                <div>
+                                    <label>
+                                        <Field type="radio" name="stooge" value="larry"/>
+                                        Larry
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <Field type="radio" name="stooge" value="moe"/>
+                                        Moe
+                                    </label>
+                                </div>
+                                <div>
+                                    <label>
+                                        <Field type="radio" name="stooge" value="curly"/>
+                                        Curly
+                                    </label>
+                                </div>
+                            </div>
                         </div>
 
-                        <label>
-                            <Field component='textarea' type="textarea" name="notes" placeholder='Notes' />
-                            Notes
-                        </label>
+                        <div className={'box'}>
+                            <label>Notes</label>
+                            <Field
+                                component='textarea'
+                                type="textarea"
+                                name="notes"
+                                placeholder='Note'
+                                className={touched.notes && errors.notes ? 'error' : ''}
+                            />
+                            <ErrorMessage name="notes" component="div" className="error-message"/>
+
+                        </div>
                         <div className='button-box'>
-                            <button className='btn submit-btn' type="submit">Submit</button>
-                            <button className='btn reset-btn'  type='reset' >Reset</button>
+                            <button className='btn submit-btn' type="submit" disabled={!isValid || !dirty}>Submit
+                            </button>
+                            <button className='btn reset-btn' type='reset' onClick={() => {
+                                setOutput('');
+                                resetForm();
+                            }} disabled={!dirty}>Reset
+                            </button>
                         </div>
+                        <div className='output'>{JSON.stringify(values, null, '\t')}</div>
                     </Form>
                 )}
             </Formik>
-            { output &&
-                <div className='output'>
-                    {output}
-                </div>
-            }
         </div>
     );
 }
