@@ -1,0 +1,60 @@
+.form-box {
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid gray;
+    max-width: 500px;
+    text-align: left;
+    font-size: 24px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input{
+    margin-left: 30px;
+    float: right;
+    font-size: 24px ;
+}
+
+textarea {
+    margin-left: 30px;
+    float: right;
+}
+select {
+    float: right;
+    width: 162px;
+    height: 30px;
+    font-size: 20px;
+}
+
+.button-box {
+    display: flex;
+    width: 100%;
+    margin-top: 40px;
+    justify-content: space-around;
+}
+
+.btn {
+    padding: 7px 15px;
+    font-size: 18px;
+}
+
+.submit-btn {
+    background-color: #0074d9;
+    color: #fff;
+}
+
+.reset-btn {
+    background-color: #880000;
+    color: #fff;
+}
+
+.output {
+    margin-top: 30px;
+    font-size: 18px;
+    padding: 15px;
+    color: black;
+    background-color: #7f7f7f;
+}
