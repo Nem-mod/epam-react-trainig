@@ -1,11 +1,22 @@
 import './App.css';
-import React from "react";
+import React, {useState} from "react";
 
 import './index.css'
+import {Slider} from "./Slider";
 function App() {
+    const [darkTheme, setDarkTheme] = useState(false);
 
+    const changeTheme  = () => {
+        setDarkTheme(prevState => !prevState);
+        if (!darkTheme)
+            document.body.classList.add('dark');
+        else
+            document.body.classList.remove('dark');
+
+    }
     return (
         <div className="App">
+            <Slider onClickHandler={changeTheme}/>
             {
                 React.createElement('h1',
                     {
@@ -17,7 +28,7 @@ function App() {
                     'Solar system planets')
             }
 
-            <ul className={'planets-list'}>
+            <ul className={`planets-list ${ darkTheme ? 'planets-list_dark' : ''}`}>
                 <li>Mercury</li>
                 <li>Venus</li>
                 <li>Earth</li>
