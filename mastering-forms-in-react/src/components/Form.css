@@ -55,16 +55,6 @@ select {
     font-size: 18px;
 }
 
-.submit-btn {
-    background-color: #0074d9;
-    color: #fff;
-}
-
-.reset-btn {
-    background-color: #880000;
-    color: #fff;
-}
-
 .output {
     height: 400px;
     margin-top: 30px;
@@ -82,3 +72,19 @@ select {
 .error {
     border-color: red;
 }
+
+button[disabled=disabled], button:disabled {
+    background-color: gray;
+
+}
+
+.submit-btn {
+    background-color: #0074d9;
+    color: #fff;
+}
+
+.reset-btn {
+    background-color: #880000;
+    color: #fff;
+}
+

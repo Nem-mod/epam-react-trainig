@@ -1,6 +1,6 @@
 import './Form.css'
 import {Field, Formik, Form, ErrorMessage} from 'formik';
-import {useRef, useState} from "react";
+import {useState} from "react";
 
 const initialValue = {
     stooge: '',
@@ -35,7 +35,6 @@ const validate = (values) => {
     return errors;
 };
 export const TaskForm = () => {
-    const [output, setOutput] = useState('');
     return (
         <div className='form-box'>
             <Formik
@@ -195,9 +194,10 @@ export const TaskForm = () => {
                             <button className='btn submit-btn' type="submit" disabled={!isValid || !dirty}>Submit
                             </button>
                             <button className='btn reset-btn' type='reset' onClick={() => {
-                                setOutput('');
                                 resetForm();
-                            }} disabled={!dirty}>Reset
+                            }}
+                                    disabled={!dirty}
+                            >Reset
                             </button>
                         </div>
                         <div className='output'>{JSON.stringify(values, null, '\t')}</div>
