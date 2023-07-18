@@ -1,0 +1,56 @@
+.join-program {
+    margin-top: 30px;
+    text-align: center;
+    padding: 0 307px;
+    background-image: url("../../resources/img_3.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content {
+    padding: 100px 0;
+}
+.join-program__title {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 64px;
+    color: #ffff;
+}
+
+.join-program__subtitle {
+    margin-top: 30px;
+    font-size: 24px;
+    line-height: 32px;
+    color: #FFFFFFB2;
+}
+
+.join-program__main {
+    margin-top: 60px;
+}
+
+.email-input {
+    width: 400px;
+    padding: 10px 20px;
+    font-size: 14px;
+    line-height: 18px;
+    color: #fff;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.email-input:focus {
+    border: none;
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+.submit-btn {
+    width: 110px;
+    margin-left: 30px ;
+    padding: 15px;
+    border-radius: 30px;
+    border: none;
+    background-color: #55C2D8;
+    font-size: 14px;
+    text-align: center;
+    color: #FFFFFF;
+}

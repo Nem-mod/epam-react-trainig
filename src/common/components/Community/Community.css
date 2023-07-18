@@ -1,0 +1,89 @@
+.community {
+    margin-top: 88px;
+    text-align: center;
+}
+
+.community__header {
+}
+
+.title {
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 64px;
+    color: #464547;
+}
+
+.subtitle {
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 32px;
+    color: #666666;
+}
+
+.community__main {
+    margin-top: 57px;
+}
+
+.community__cards {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+}
+
+.community__card {
+    width: 234px;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.community__card:hover {
+    box-shadow: 0px 0px 20px 0px #00000026;
+}
+
+.card-photo {
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+.card-about {
+    flex: 1 1 100%;
+
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 20px;
+    color: #666666;
+}
+
+.card-info {
+    margin-top: 40px;
+}
+
+.name {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+
+}
+
+.position {
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.hide-btn {
+    float: right;
+    padding: 20px;
+    border: 2px solid red;
+    font-size: 18px;
+    color: red;
+    background-color: #fff;
+}
+
+button:disabled {
+    opacity: 0.5;
+}
